@@ -7,7 +7,21 @@ import { useEffect, useState } from "react"
 
 export function Hero() {
   const [displayedText, setDisplayedText] = useState("")
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
   const fullText = "Full Stack Developer"
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+
+      const handleResize = () => {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+      }
+
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     let i = 0
@@ -30,11 +44,11 @@ export function Hero() {
             key={i}
             className="absolute w-1 h-1 bg-primary/20 rounded-full"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * (windowSize.width || 1920),
+              y: Math.random() * (windowSize.height || 1080),
             }}
             animate={{
-              y: [null, -100, window.innerHeight + 100],
+              y: [null, -100, (windowSize.height || 1080) + 100],
             }}
             transition={{
               duration: Math.random() * 10 + 10,
