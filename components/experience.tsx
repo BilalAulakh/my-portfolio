@@ -1,4 +1,7 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
+import { motion } from "framer-motion"
 
 const experiences = [
   {
@@ -39,12 +42,20 @@ export function Experience() {
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <div key={index} className="grid lg:grid-cols-4 gap-6 lg:gap-12">
+              <motion.div
+                key={index}
+                className="grid lg:grid-cols-4 gap-6 lg:gap-12"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
                 <div className="lg:col-span-1">
                   <p className="text-sm text-muted-foreground font-mono">{exp.period}</p>
                 </div>
 
-                <div className="lg:col-span-3 space-y-4">
+                <div className="lg:col-span-3 space-y-4 relative">
+                  <div className="absolute -left-5 top-1 bottom-1 w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 hidden lg:block" />
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
                     <p className="text-primary font-medium">{exp.company}</p>
@@ -60,7 +71,7 @@ export function Experience() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

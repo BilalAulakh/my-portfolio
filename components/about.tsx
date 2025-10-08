@@ -1,9 +1,22 @@
+"use client"
+
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+
 export function About() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section id="about" className="py-20 px-6">
+    <section id="about" className="py-20 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="space-y-2">
               <div className="w-12 h-px bg-primary"></div>
               <h2 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">About</h2>
@@ -12,9 +25,14 @@ export function About() {
             <h3 className="text-3xl lg:text-4xl font-bold text-balance">
               Passionate about creating digital experiences
             </h3>
-          </div>
+          </motion.div>
 
-          <div className="space-y-6 text-muted-foreground leading-relaxed">
+          <motion.div
+            className="space-y-6 text-muted-foreground leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             <p>
               I'm a developer passionate about crafting accessible, pixel-perfect user interfaces that blend thoughtful
               design with robust engineering. My favorite work lies at the intersection of design and development,
@@ -42,7 +60,7 @@ export function About() {
               In my spare time, I'm usually climbing, reading, hanging out with my family, or exploring new technologies
               and frameworks.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

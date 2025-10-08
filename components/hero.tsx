@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { Magnetic } from "@/components/magnetic"
 
 export function Hero() {
   const [displayedText, setDisplayedText] = useState("")
@@ -107,23 +108,28 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 relative overflow-hidden group">
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.6 }}
-                />
-                View My Work
-              </Button>
-            </motion.div>
+            {/* Magnetic interactions on buttons */}
+            <Magnetic>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button size="lg" className="bg-primary hover:bg-primary/90 relative overflow-hidden group">
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  View My Work
+                </Button>
+              </motion.div>
+            </Magnetic>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="lg">
-                Get In Touch
-              </Button>
-            </motion.div>
+            <Magnetic>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button asChild variant="outline" size="lg" className="relative overflow-hidden bg-transparent">
+                  <a href="#contact">Get In Touch</a>
+                </Button>
+              </motion.div>
+            </Magnetic>
           </motion.div>
 
           <motion.div
@@ -220,6 +226,21 @@ export function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Pulsing accent behind hero canvas */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/3 h-[480px] w-[480px] -translate-x-1/2 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(closest-side, hsl(var(--primary)/0.15), transparent 70%)" }}
+          animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        />
+      </motion.div>
 
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
