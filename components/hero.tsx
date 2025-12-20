@@ -74,7 +74,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Muhammad Bilal
+              Muhammad Bilal jutt
             </motion.h1>
 
             <motion.h2
