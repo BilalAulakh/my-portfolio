@@ -1,174 +1,93 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { TiltCard } from "@/components/tilt-card"
 
 const projects = [
   {
-    title: "E-Commerce Platform",
-    description:
-      "A modern e-commerce platform built with Next.js and Stripe integration. Features include product catalog, shopping cart, and secure checkout.",
-    image: "/modern-ecommerce-interface.png",
-    technologies: ["Next.js", "TypeScript", "Stripe", "Tailwind CSS"],
-    liveUrl: "#",
-    githubUrl: "#",
+    num: "/01",
+    title: "Salveo Well — Wellness E-commerce & Affiliate Platform",
+    desc: "Organic supplement store with multi-tier membership (Gold/Silver/Platinum), MLM power-leg structure, leaderboards, and dashboards for orders, commissions, and team growth.",
+    stack: ["React.js", "Redux Toolkit", "Vite", "SASS"],
   },
   {
+    num: "/02",
+    title: "Boshna — Multi-Vendor & Admin Dashboard",
+    desc: "Multi-role management system with separate Admin/Vendor portals, real-time order lifecycle (accept/reject/deliver), RBAC, Recharts analytics, and Google Maps delivery tracking.",
+    stack: ["React 19", "Redux Toolkit", "Formik + Yup", "Recharts"],
+  },
+  {
+    num: "/03",
     title: "Task Management App",
-    description:
-      "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/task-management-dashboard.png",
-    technologies: ["React", "Node.js", "Socket.io", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "#",
+    desc: "Team collaboration tool with real-time updates, drag-and-drop boards, and notifications.",
+    stack: ["Next.js", "Socket.io", "MongoDB", "JWT"],
   },
   {
-    title: "Weather Dashboard",
-    description:
-      "A beautiful weather dashboard that displays current conditions and forecasts with interactive charts and location-based services.",
-    image: "/weather-dashboard.png",
-    technologies: ["Vue.js", "Chart.js", "OpenWeather API", "CSS3"],
-    liveUrl: "#",
-    githubUrl: "#",
+    num: "/04",
+    title: "AI-Powered Chatbot Platform",
+    desc: "Custom chatbot solution with LLM integration, context-aware responses, and admin dashboard for training.",
+    stack: ["Next.js", "OpenAI API", "MongoDB", "Node.js"],
   },
   {
-    title: "Portfolio Website",
-    description:
-      "A responsive portfolio website showcasing creative work with smooth animations and optimized performance.",
-    image: "/creative-portfolio-website.png",
-    technologies: ["Gatsby", "GraphQL", "GSAP", "Netlify"],
-    liveUrl: "#",
-    githubUrl: "#",
+    num: "/05",
+    title: "Booking & Scheduling System",
+    desc: "End-to-end booking platform with calendar integration, payment processing, and email reminders.",
+    stack: ["React.js", "Node.js", "PostgreSQL", "Stripe"],
   },
 ]
 
 export function Projects() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const inView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="projects" className="py-20 px-6" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        <div className="space-y-12">
-          <motion.div
-            className="space-y-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div
-              className="w-12 h-px bg-primary"
-              initial={{ width: 0 }}
-              animate={isInView ? { width: 48 } : { width: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
-            <h2 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Projects</h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                whileHover={{ y: -10 }}
-                className="group [perspective:1200px]"
-              >
-                <TiltCard className="will-change-transform">
-                  <Card className="overflow-hidden border-border bg-card hover:bg-card/80 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
-                    <div className="aspect-video overflow-hidden relative">
-                      <motion.img
-                        src={project.image || "/placeholder.svg?height=720&width=1280&query=project thumbnail"}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                      />
-                      <motion.div
-                        className="absolute inset-0 bg-primary/20 flex items-center justify-center"
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <motion.div
-                          className="flex gap-4"
-                          initial={{ scale: 0.8, opacity: 0 }}
-                          whileHover={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.3, delay: 0.1 }}
-                        >
-                          <Button size="sm" variant="secondary" asChild>
-                            <a href={project.liveUrl}>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                          </Button>
-                          <Button size="sm" variant="secondary" asChild>
-                            <a href={project.githubUrl}>
-                              <Github className="w-4 h-4" />
-                            </a>
-                          </Button>
-                        </motion.div>
-                      </motion.div>
-                    </div>
-
-                    <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <motion.h3
-                          className="text-xl font-semibold text-foreground"
-                          whileHover={{ color: "hsl(var(--primary))" }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {project.title}
-                        </motion.h3>
-                        <p className="text-muted-foreground leading-relaxed">{project.description}</p>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <motion.div
-                            key={tech}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.3, delay: index * 0.2 + techIndex * 0.1 }}
-                            whileHover={{ scale: 1.1 }}
-                          >
-                            <Badge variant="secondary" className="text-xs hover:bg-primary/20 transition-colors">
-                              {tech}
-                            </Badge>
-                          </motion.div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-3 pt-2">
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.liveUrl} className="flex items-center gap-2">
-                              <ExternalLink className="w-4 h-4" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="ghost" size="sm" asChild>
-                            <a href={project.githubUrl} className="flex items-center gap-2">
-                              <Github className="w-4 h-4" />
-                              Code
-                            </a>
-                          </Button>
-                        </motion.div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TiltCard>
-              </motion.div>
-            ))}
+    <section id="projects" className="py-32 bg-bg-soft" ref={ref}>
+      <div className="max-w-[1240px] mx-auto px-8">
+        <div className="mb-16 max-w-[700px]">
+          <div className="flex items-center gap-3 mb-4 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+            <span className="w-7 h-px bg-accent" />
+            Selected Work
           </div>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] mb-5 text-[clamp(2.2rem,4vw,3.2rem)]">
+            Recent <em className="italic text-accent">projects</em>.
+          </h2>
+          <p className="text-[1.05rem] text-text-dim max-w-[580px]">
+            A small selection of MERN stack projects built across the past few years.
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          {projects.map((p, i) => (
+            <motion.a
+              key={p.title}
+              href="#contact"
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className={`group grid grid-cols-[80px_1fr_auto] gap-8 py-10 border-b border-border items-center transition-[padding] duration-300 hover:pl-4 ${
+                i === 0 ? "border-t" : ""
+              }`}
+            >
+              <div className="font-mono text-[0.85rem] text-text-muted">{p.num}</div>
+              <div>
+                <h3 className="font-serif text-[1.6rem] font-normal mb-2 transition-colors duration-300 group-hover:text-accent">
+                  {p.title}
+                </h3>
+                <p className="text-text-dim text-[0.95rem] mb-3">{p.desc}</p>
+                <div className="flex gap-3 flex-wrap font-mono text-xs text-text-muted tracking-wide">
+                  {p.stack.map((s, idx) => (
+                    <span key={s} className="flex items-center gap-3">
+                      {s}
+                      {idx < p.stack.length - 1 && <span aria-hidden>•</span>}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="font-serif text-2xl text-text-dim transition-all duration-300 group-hover:translate-x-2 group-hover:text-accent">
+                →
+              </div>
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>

@@ -1,141 +1,143 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Github, Linkedin, Mail, MapPin } from "lucide-react"
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion, useInView } from "framer-motion"
+import { useRef, useState, type FormEvent } from "react"
+import { ArrowRight } from "lucide-react"
+
+const contactItems = [
+  { label: "Email", value: "bilalaulakh.dev@gmail.com", href: "mailto:bilalaulakh.dev@gmail.com" },
+  { label: "Location", value: "Faisalabad, Pakistan" },
+  { label: "Experience", value: "3+ Years" },
+  { label: "Status", value: "Open to opportunities" },
+]
 
 export function Contact() {
-  const [sent, setSent] = useState(false)
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-100px" })
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setSubmitted(true)
+    e.currentTarget.reset()
+    setTimeout(() => setSubmitted(false), 4000)
+  }
 
   return (
-    <section id="contact" className="py-20 px-6 bg-card/50">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12">
+    <section id="contact" className="py-32" ref={ref}>
+      <div className="max-w-[1240px] mx-auto px-8">
+        <div className="mb-16 max-w-[700px]">
+          <div className="flex items-center gap-3 mb-4 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+            <span className="w-7 h-px bg-accent" />
+            Get in Touch
+          </div>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-[clamp(2.2rem,4vw,3.2rem)]">
+            Let&apos;s build something <em className="italic text-accent">together</em>.
+          </h2>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-20 items-start">
           <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-12 h-px bg-primary"></div>
-            <h2 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Contact</h2>
-            <h3 className="text-3xl lg:text-4xl font-bold text-balance">Let's work together</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              I'm always interested in discussing new opportunities, creative projects, or just having a chat about
-              technology and design.
+            <p className="text-[1.05rem] text-text-dim mb-8 leading-[1.8]">
+              Have a project in mind or looking for a MERN stack developer for your
+              team? I&apos;d love to hear from you. I read every message and reply
+              within a day.
             </p>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <Mail className="w-5 h-5 text-primary" />
-                <span>your.email@example.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span>Your City, Country</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <a
-                href="https://github.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="w-6 h-6" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a
-                href="mailto:your.email@example.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Email"
-              >
-                <Mail className="w-6 h-6" />
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Card className="border-border bg-card">
-              <CardContent className="p-6">
-                <form
-                  className="space-y-6"
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    setSent(true)
-                    setTimeout(() => setSent(false), 2000)
-                  }}
+            <ul className="list-none mt-10">
+              {contactItems.map((item, i) => (
+                <li
+                  key={item.label}
+                  className={`py-5 border-b border-border flex justify-between items-center ${
+                    i === 0 ? "border-t" : ""
+                  }`}
                 >
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium text-foreground">
-                        Name
-                      </label>
-                      <Input id="name" placeholder="Your name" className="bg-background border-border" />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium text-foreground">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        className="bg-background border-border"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="subject" className="text-sm font-medium text-foreground">
-                      Subject
-                    </label>
-                    <Input id="subject" placeholder="Project inquiry" className="bg-background border-border" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">
-                      Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell me about your project..."
-                      rows={5}
-                      className="bg-background border-border resize-none"
-                    />
-                  </div>
-
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 relative overflow-hidden">
-                    <motion.span
-                      initial={false}
-                      animate={sent ? { x: ["-110%", "110%"] } : { x: "-110%" }}
-                      transition={{ duration: 0.8, ease: "easeInOut" }}
-                      className="absolute inset-y-0 left-0 w-1/3 bg-white/20"
-                    />
-                    {sent ? "Sent!" : "Send Message"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                  <span className="font-mono text-xs uppercase tracking-[0.1em] text-text-muted">
+                    {item.label}
+                  </span>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="text-foreground text-[0.95rem] hover:text-accent transition-colors"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span className="text-foreground text-[0.95rem]">{item.value}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </motion.div>
+
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="bg-bg-card border border-border rounded-sm p-10"
+          >
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <FormField id="name" label="Your Name" type="text" />
+              <FormField id="email" label="Email" type="email" />
+            </div>
+            <div className="mb-6">
+              <FormField id="subject" label="Subject" type="text" />
+            </div>
+            <div className="mb-6">
+              <label
+                htmlFor="message"
+                className="block font-mono text-[0.7rem] text-text-muted tracking-[0.1em] uppercase mb-2.5"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                required
+                className="w-full bg-background border border-border rounded-sm px-4 py-3.5 text-foreground text-[0.95rem] resize-y min-h-[120px] focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-sm bg-accent text-background text-sm font-medium tracking-wide transition-all duration-300 hover:bg-foreground hover:-translate-y-0.5"
+            >
+              {submitted ? "Thanks for reaching out!" : "Send Message"}
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </motion.form>
         </div>
       </div>
     </section>
+  )
+}
+
+function FormField({
+  id,
+  label,
+  type,
+}: {
+  id: string
+  label: string
+  type: string
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block font-mono text-[0.7rem] text-text-muted tracking-[0.1em] uppercase mb-2.5"
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        required
+        className="w-full bg-background border border-border rounded-sm px-4 py-3.5 text-foreground text-[0.95rem] focus:outline-none focus:border-accent transition-colors"
+      />
+    </div>
   )
 }

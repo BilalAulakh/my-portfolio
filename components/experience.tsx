@@ -1,79 +1,67 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
 
-const experiences = [
+const items = [
   {
-    period: "2024 — Present",
-    title: "Senior Frontend Engineer, Accessibility",
-    company: "TechCorp",
-    description:
-      "Build and maintain critical components used to construct TechCorp's frontend, across the whole product. Work closely with cross-functional teams, including developers, designers, and product managers, to implement and advocate for best practices in web accessibility.",
-    technologies: ["JavaScript", "TypeScript", "React", "Storybook"],
+    period: "Current · 2 Years 4 Months",
+    role: "MERN Stack Developer",
+    company: "Bixosoft",
+    desc: "Working on scalable web applications using React, Next.js, Node.js, and Express. Building robust REST APIs, integrating PostgreSQL and MongoDB databases, and crafting responsive UIs with TailwindCSS and Material UI. Collaborating with cross-functional teams to deliver production-grade software.",
   },
   {
-    period: "2022 — 2024",
-    title: "Frontend Developer",
-    company: "StartupXYZ",
-    description:
-      "Developed and maintained the company's main web application, focusing on user experience and performance optimization. Collaborated with design team to implement pixel-perfect interfaces.",
-    technologies: ["React", "Next.js", "Tailwind CSS", "Node.js"],
-  },
-  {
-    period: "2020 — 2022",
-    title: "Full Stack Developer",
-    company: "Digital Agency",
-    description:
-      "Built custom web applications for various clients, from e-commerce platforms to corporate websites. Managed projects from conception to deployment.",
-    technologies: ["Vue.js", "Laravel", "MySQL", "AWS"],
+    period: "7 Months",
+    role: "Web Developer",
+    company: "ASDEV Tech",
+    desc: "Started my professional career building MERN stack applications. Gained hands-on experience with React.js, Node.js, Express, and MongoDB. Worked on full-stack features end-to-end, from database design to UI implementation, while developing strong fundamentals in modern web development.",
   },
 ]
 
 export function Experience() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section id="experience" className="py-20 px-6 bg-card/50">
-      <div className="max-w-6xl mx-auto">
-        <div className="space-y-12">
-          <div className="space-y-2">
-            <div className="w-12 h-px bg-primary"></div>
-            <h2 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Experience</h2>
+    <section id="experience" className="py-32" ref={ref}>
+      <div className="max-w-[1240px] mx-auto px-8">
+        <div className="mb-16 max-w-[700px]">
+          <div className="flex items-center gap-3 mb-4 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+            <span className="w-7 h-px bg-accent" />
+            Career
           </div>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] mb-5 text-[clamp(2.2rem,4vw,3.2rem)]">
+            Professional <em className="italic text-accent">journey</em>.
+          </h2>
+          <p className="text-[1.05rem] text-text-dim max-w-[580px]">
+            Where I&apos;ve worked and what I&apos;ve built along the way.
+          </p>
+        </div>
 
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                className="grid lg:grid-cols-4 gap-6 lg:gap-12"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="lg:col-span-1">
-                  <p className="text-sm text-muted-foreground font-mono">{exp.period}</p>
-                </div>
-
-                <div className="lg:col-span-3 space-y-4 relative">
-                  <div className="absolute -left-5 top-1 bottom-1 w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 hidden lg:block" />
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
-                    <p className="text-primary font-medium">{exp.company}</p>
-                  </div>
-
-                  <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="relative pl-8 border-l border-border">
+          {items.map((item, i) => (
+            <motion.div
+              key={item.company}
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="relative pl-8 py-6 pb-10"
+            >
+              <span
+                aria-hidden
+                className="absolute -left-[2.4rem] top-8 w-3 h-3 rounded-full bg-accent"
+                style={{ boxShadow: "0 0 0 4px var(--background)" }}
+              />
+              <div className="font-mono text-xs uppercase tracking-[0.1em] text-accent mb-2">
+                {item.period}
+              </div>
+              <h3 className="font-serif text-[1.5rem] font-medium mb-1">{item.role}</h3>
+              <div className="text-[0.95rem] font-medium text-accent-soft mb-3">
+                {item.company}
+              </div>
+              <p className="text-text-dim text-[0.95rem] leading-[1.7]">{item.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
