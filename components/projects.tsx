@@ -3,36 +3,46 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 
-const projects = [
+type Project = {
+  num: string
+  title: string
+  desc: string
+  stack: string[]
+  link?: string
+}
+
+const projects: Project[] = [
   {
     num: "/01",
     title: "Salveo Well — Wellness E-commerce & Affiliate Platform",
     desc: "Organic supplement store with multi-tier membership (Gold/Silver/Platinum), MLM power-leg structure, leaderboards, and dashboards for orders, commissions, and team growth.",
     stack: ["React.js", "Redux Toolkit", "Vite", "SASS"],
+    link: "https://salveowell.com/",
   },
   {
     num: "/02",
     title: "Boshna — Multi-Vendor & Admin Dashboard",
     desc: "Multi-role management system with separate Admin/Vendor portals, real-time order lifecycle (accept/reject/deliver), RBAC, Recharts analytics, and Google Maps delivery tracking.",
     stack: ["React 19", "Redux Toolkit", "Formik + Yup", "Recharts"],
+    link: "https://admin.boshna.sa",
   },
   {
     num: "/03",
-    title: "Task Management App",
-    desc: "Team collaboration tool with real-time updates, drag-and-drop boards, and notifications.",
-    stack: ["Next.js", "Socket.io", "MongoDB", "JWT"],
+    title: "Enterprise B2B Multi-Vendor Booking Ecosystem",
+    desc: "B2B marketplace bridging vendors and corporate clients across stays, fleet, and experiences — multi-tenant vendor workspaces, decoupled Next.js client portal + React vendor suite, RBAC, and a Node.js engine handling bulk bookings, contracts, and multi-vendor payouts.",
+    stack: ["Next.js", "React.js", "Node.js + Express", "Tailwind CSS"],
   },
   {
     num: "/04",
-    title: "AI-Powered Chatbot Platform",
-    desc: "Custom chatbot solution with LLM integration, context-aware responses, and admin dashboard for training.",
-    stack: ["Next.js", "OpenAI API", "MongoDB", "Node.js"],
+    title: "AsianFX — Forex & Crypto Trading Signals Platform",
+    desc: "FinTech platform broadcasting real-time Buy/Sell signals (entry, target, stop-loss) for BTC, Gold, and Silver. Free + premium subscription tiers, Socket.io live updates with a live-clients counter, breaking-news countdowns, and an admin-managed wallet & deposit system.",
+    stack: ["Next.js", "Redux Toolkit", "Node.js", "PostgreSQL"],
   },
   {
     num: "/05",
-    title: "Booking & Scheduling System",
-    desc: "End-to-end booking platform with calendar integration, payment processing, and email reminders.",
-    stack: ["React.js", "Node.js", "PostgreSQL", "Stripe"],
+    title: "Instagram-style Social Media App",
+    desc: "Full-stack social platform with photo posts, feed, likes, comments, follows, and real-time interactions — built mobile-first with a Next.js frontend and a Node.js/Express API.",
+    stack: ["Next.js", "Node.js + Express", "MongoDB", "REST API"],
   },
 ]
 
@@ -60,11 +70,14 @@ export function Projects() {
           {projects.map((p, i) => (
             <motion.a
               key={p.title}
-              href="#contact"
+              href={p.link ?? "#contact"}
+              {...(p.link
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className={`group grid grid-cols-[80px_1fr_auto] gap-8 py-10 border-b border-border items-center transition-[padding] duration-300 hover:pl-4 ${
+              className={`group grid grid-cols-[80px_1fr] gap-8 py-10 border-b border-border items-center transition-[padding] duration-300 hover:pl-4 ${
                 i === 0 ? "border-t" : ""
               }`}
             >
@@ -82,9 +95,6 @@ export function Projects() {
                     </span>
                   ))}
                 </div>
-              </div>
-              <div className="font-serif text-2xl text-text-dim transition-all duration-300 group-hover:translate-x-2 group-hover:text-accent">
-                →
               </div>
             </motion.a>
           ))}

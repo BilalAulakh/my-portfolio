@@ -4,31 +4,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #0a0e1a;
-  --bg-soft: #111828;
-  --bg-card: #151d31;
-  --foreground: #e8eaf0;
-  --text-dim: #8a93a8;
-  --text-muted: #5a6478;
-  --accent: #d4a574;
+  --background: #faf7f0;
+  --bg-soft: #f1ede1;
+  --bg-card: #ffffff;
+  --foreground: #14171f;
+  --text-dim: #4b5366;
+  --text-muted: #7a8294;
+  --accent: #a06b3c;
   --accent-soft: #b8895a;
-  --border: #1f2a44;
+  --border: #e3dccc;
 
-  --card: #151d31;
-  --card-foreground: #e8eaf0;
-  --popover: #151d31;
-  --popover-foreground: #e8eaf0;
-  --primary: #d4a574;
-  --primary-foreground: #0a0e1a;
-  --secondary: #111828;
-  --secondary-foreground: #e8eaf0;
-  --muted: #111828;
-  --muted-foreground: #8a93a8;
-  --accent-foreground: #0a0e1a;
+  --card: #ffffff;
+  --card-foreground: #14171f;
+  --popover: #ffffff;
+  --popover-foreground: #14171f;
+  --primary: #a06b3c;
+  --primary-foreground: #ffffff;
+  --secondary: #f1ede1;
+  --secondary-foreground: #14171f;
+  --muted: #f1ede1;
+  --muted-foreground: #4b5366;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --input: #151d31;
-  --ring: #d4a574;
+  --input: #ffffff;
+  --ring: #a06b3c;
   --radius: 0.25rem;
 }
 
